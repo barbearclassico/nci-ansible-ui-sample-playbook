@@ -1,5 +1,5 @@
 ---
-- hosts: git-dev
+- hosts: dev
   become: yes
   roles:
     - role: BCdropbox
