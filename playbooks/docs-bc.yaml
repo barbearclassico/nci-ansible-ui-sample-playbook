@@ -2,13 +2,14 @@
 - name: "Ensure we have what we need"
   become: yes
   hosts: localhost
-  apt:
-    update_cache: yes
-    cache_valid_time: "3600"
-    pkg:
-    - python3-virtualenv
-    - virtualenv
-    - make
+  tasks:
+    apt:
+      update_cache: yes
+      cache_valid_time: "3600"
+      pkg:
+      - python3-virtualenv
+      - virtualenv
+      - make
 - name: "build docs"
   hosts: localhost
   connection: local 
