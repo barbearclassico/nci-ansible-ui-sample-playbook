@@ -31,18 +31,30 @@
   when: debug is defined
   debug:
     msg:
-    - "Build path: {{ repofolder.path }}"
+    - "Build path: {{ repo_folder.path }}"
     - "Virtual Env: {{ envdir.path }}"
 
 - name: pip install output
   debug:
-    msg: "{{ pipinstall.stdout_lines }}"
+    # msg: "{{ pipinstall.stdout_lines }}"
+    msg: "{{ pipinstall }}"
 
 - name: Build project
   make:
     chdir: "{{ repo_folder.path }}"
     target: html
   ignore_errors: True
+
+- name: import defined key
+  shell:
+    chdir: "{{ repo_folder.path }}"
+    cmd: |
+      (
+      source "{{ pipinstall.virtualenv }}/bin/activate"
+      make html
+      )
+  args:
+    executable: /bin/bash
 
 - name: Get build folder
   copy:
