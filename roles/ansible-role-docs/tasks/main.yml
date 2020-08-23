@@ -27,6 +27,13 @@
     virtualenv_python: python3
   register: pipinstall
 
+- name: Print the directories in use
+  when: debug is defined
+  debug:
+    msg:
+    - "Build path: {{ repofolder.path }}"
+    - "Virtual Env: {{ envdir.path }}"
+
 - name: pip install output
   debug:
     msg: "{{ pipinstall.stdout_lines }}"
@@ -35,14 +42,22 @@
   make:
     chdir: "{{ repo_folder.path }}"
     target: html
+  ignore_errors: True
 
 - name: Get build folder
   copy:
     content: '{{ repo_folder|to_json }}'
     dest: repofolder.json
   delegate_to: localhost
+  ignore_errors: True
 
-- name: delete temp envdir
+- name: Delete temp build directory
+  file:
+    path: "{{ envdir.path }}"
+    state: absent
+  when: envdir.path is defined
+
+- name: Delete Virtual Env directory
   file:
     path: "{{ envdir.path }}"
     state: absent
