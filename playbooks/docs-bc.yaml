@@ -1,4 +1,13 @@
 ---
+
+- name: ensure we have what we need
+  apt:
+   update_cache: yes
+   cache_valid_time: 36000
+   pkg:
+   - python3-virtualenv
+   - virtualenv
+   - make
 - name: "build docs"
   hosts: localhost
   connection: local 
@@ -47,7 +56,7 @@
    - name: "copy site"
      synchronize:
        src: "{{ repofolder.path }}/_build/html/"
-       dest: "{{ sitepath}}"
+       dest: "{{ sitepath }}"
        #roles:
        #  - ansible-role-nginx
 - name: "Clean up"
