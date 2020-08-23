@@ -52,12 +52,14 @@
   ignore_errors: True
 
 - name: Delete temp build directory
+  when: debug is not defined
   file:
     path: "{{ envdir.path }}"
     state: absent
   when: envdir.path is defined
 
 - name: Delete Virtual Env directory
+  when: debug is not defined
   file:
     path: "{{ envdir.path }}"
     state: absent
