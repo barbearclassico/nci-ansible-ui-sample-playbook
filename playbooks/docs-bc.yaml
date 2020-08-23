@@ -2,7 +2,9 @@
 - name: "Ensure we have what we need"
   become: yes
   hosts: localhost
+  connection: local 
   tasks:
+  - name: "install required packages"
     apt:
       update_cache: yes
       cache_valid_time: "3600"
