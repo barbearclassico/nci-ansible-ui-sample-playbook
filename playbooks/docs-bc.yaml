@@ -1,6 +1,6 @@
 ---
 
-- name: ensure we have what we need
+- name: "Ensure we have what we need"
   apt:
    update_cache: yes
    cache_valid_time: 36000
