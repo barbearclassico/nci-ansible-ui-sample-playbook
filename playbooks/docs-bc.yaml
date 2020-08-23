@@ -75,6 +75,8 @@
      file:
        path: "{{ repo_folder.path }}"
        state: absent
-     when: repo_folder.path is defined
+     when:
+     - repo_folder.path is defined
+     - debug is not defined
 
 
